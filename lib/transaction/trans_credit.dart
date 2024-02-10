@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:spendwise/sqldb.dart';
 import 'package:spendwise/transaction/trans_credit1.dart';
 
 class trans_credit extends StatefulWidget {
@@ -11,6 +12,8 @@ class trans_credit extends StatefulWidget {
 }
 
 class _trans_creditState extends State<trans_credit> {
+  SqlDb sqlDb = SqlDb();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,18 +42,33 @@ class _trans_creditState extends State<trans_credit> {
                         TextField(
                           textInputAction: TextInputAction.next,
                           controller: control_amount,
+                          
                           maxLength: 10,
                           decoration:
                               InputDecoration(hintText: "add new Amount "),
                         ),
+                        
                         SizedBox(
                           height: 22,
                         ),
                         TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               setState(() {
                                 addNewCredit();
+                                control_amount.clear();
+                                control_descrption.clear();
                               });
+                              String describtion = control_descrption.text;
+                              String amount = control_amount.text;
+
+                              int response = await sqlDb.insertData('''            
+                             INSERT INTO creditTb (describtion, amount)
+                              VALUES ("$describtion", "$amount")        
+                              ''');
+                         
+                            
+                              print("response");
+                              print(response);
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -66,7 +84,6 @@ class _trans_creditState extends State<trans_credit> {
           backgroundColor: Color.fromARGB(255, 190, 195, 201),
         ),
         appBar: AppBar(
-          // elevation: 20,
           backgroundColor: Color.fromARGB(255, 190, 195, 201),
           title: Text("Credit"),
           centerTitle: true,
@@ -81,22 +98,19 @@ class _trans_creditState extends State<trans_credit> {
               )),
         ),
         body: SafeArea(
-          
           child: Column(
             children: [
-    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Total of Credit = ${countCredit()}",
-                      style: TextStyle(fontSize: 30),
-                    ),
-
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Total of Credit = ${countCredit()}",
+                style: TextStyle(fontSize: 30),
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                  
                       SizedBox(
                         height: 20,
                       ),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:spendwise/sqldb.dart';
 import 'package:spendwise/transaction/trans_debt1.dart';
 
 class trans_debt extends StatefulWidget {
@@ -11,6 +12,8 @@ class trans_debt extends StatefulWidget {
 }
 
 class _trans_debtState extends State<trans_debt> {
+    SqlDb sqlDb =SqlDb();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,6 +53,8 @@ class _trans_debtState extends State<trans_debt> {
                             onPressed: () {
                               setState(() {
                                 addNewDebt();
+                                 control_amount.clear();
+                                control_descrption.clear();
                               });
                               Navigator.pop(context);
                             },

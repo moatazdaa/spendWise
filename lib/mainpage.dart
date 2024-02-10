@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spendwise/mainpage1.dart';
+import 'package:spendwise/sqldb.dart';
 
 class mainpage extends StatefulWidget {
   const mainpage({super.key});
@@ -14,6 +15,8 @@ class mainpage extends StatefulWidget {
 }
 
 class _mainpageState extends State<mainpage> {
+
+  SqlDb sqlDb =SqlDb();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +52,10 @@ class _mainpageState extends State<mainpage> {
                 iconSize: 35,
                                 color: Color.fromARGB(255, 0, 0, 0),
 
-                onPressed: () {},
+                onPressed: () async{
+                  await sqlDb.mydeleteDatabase();
+                  
+                },
               ),
             ],
           ),
