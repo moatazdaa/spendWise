@@ -63,7 +63,6 @@ CREATE TABLE "creditTb"(
   "describtion" TEXT NOT NULL ,
   "amount" INTEGER NOT NULL,
   "totalcredit" INTEGER NULL
- 
 )
 
 ''');
