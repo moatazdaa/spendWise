@@ -7,89 +7,72 @@ class Wellcome2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( backgroundColor: Color.fromARGB(255, 255, 255, 255),
-
-      body: SafeArea(child: Column(
-      children: [ 
-       
-       Padding(
-         padding: const EdgeInsets.only(top: 0),
-          
-                child: Image.asset(
-                  "assets/images/spendwise.jpg",
-                  width: double.infinity,
-                  height: 350,
-                  fit: BoxFit.contain,
-                  
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      body: SafeArea(
+          child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Image.asset(
+              "assets/images/spendwise.jpg",
+              width: double.infinity,
+              height: 350,
+              fit: BoxFit.contain,
+            ),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          Text(
+            "Enjoy Our Services",
+            style: TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            "Enjoy easily tracking and improving your savings and managing your expenses",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 105, 105, 105),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 90,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/login");
+            },
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(36),
                 ),
               ),
- SizedBox(
-          height: 40,
-        ),
-       
-         Text("Enjoy Our Services" ,
-        style: TextStyle(
-          
-        fontSize: 27,
-        fontWeight: FontWeight.bold,
-        ),
-        textAlign: TextAlign.center,
-        ),
-        Text("Enjoy easily tracking and improving your savings and managing your expenses" ,
-        style: TextStyle(
-          
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        color: const Color.fromARGB(255, 105, 105, 105),
-        ),
-        textAlign: TextAlign.center,
-        ),
-        
-      SizedBox(
-      height: 90,
-      ),
-       Container(
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        Color.fromARGB(255, 120, 224, 255),
-        Color.fromARGB(255, 206, 237, 240),
-         
-        
-      ],
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-    ),
-    borderRadius: BorderRadius.circular(40),
-  ),
-  child: ElevatedButton(
-    onPressed: () {
-      Navigator.pushNamed(context, "/login");
-    },
-    style: ButtonStyle(
-      shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-      ),
-      padding: MaterialStateProperty.all(
-        EdgeInsets.symmetric(horizontal: 85, vertical: 17),
-      ),
-      backgroundColor: MaterialStateProperty.all(Colors.transparent),
-      foregroundColor: MaterialStateProperty.all(Colors.white),
-    ),
-    child: Text(
-      "Get Strated",
-      style: TextStyle(
-        fontSize: 30,
-      ),
-    ),
-  ),
-)
-       ], 
-      )
-
-      ),
+              padding: MaterialStateProperty.all(
+                EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+              ),
+              backgroundColor:
+                  MaterialStateProperty.all(Color.fromARGB(255, 120, 178, 197)),
+              shadowColor: MaterialStateProperty.all(
+                  const Color.fromARGB(255, 59, 22, 22)),
+              elevation: MaterialStateProperty.all(15),
+            ),
+            child: Text(
+              "Get Strated",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 22,
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

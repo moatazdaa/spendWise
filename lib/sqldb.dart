@@ -17,7 +17,7 @@ class SqlDb {
   intialDb() async {
     String databasepath = await getDatabasesPath();
     String path = join(databasepath, 'spendwise.db');
-    Database mydb = await openDatabase(path, onCreate: _oncreate ,version:2 ,onUpgrade: _onupgrade);
+    Database mydb = await openDatabase(path, onCreate: _oncreate ,version:3 ,onUpgrade: _onupgrade);
     return mydb;
   }
 _onupgrade(Database db ,int oldversion ,newversion)async{
@@ -48,7 +48,7 @@ CREATE TABLE "loginTb"(
 //create table debt...................
     await db.execute('''
 CREATE TABLE "debtTb"(
-  "describtion" TEXT NOT NULL ,
+  "descrption" TEXT NOT NULL ,
   "amount" INTEGER NOT NULL,
     "totalcredit" INTEGER NULL
 
@@ -60,7 +60,7 @@ CREATE TABLE "debtTb"(
 
     await db.execute('''
 CREATE TABLE "creditTb"(
-  "describtion" TEXT NOT NULL ,
+  "descrption" TEXT NOT NULL ,
   "amount" INTEGER NOT NULL,
   "totalcredit" INTEGER NULL
 )
@@ -81,12 +81,12 @@ CREATE TABLE "walletTb"(
     print("create database and table .................");
   }
 
-  selectData(String sql)async{
-Database? mydb=await db;
-List<Map>response =await mydb!.rawQuery(sql);
-return response;
+ Future<List<Map<String, dynamic>>> selectData(String query) async {
+  Database? mydb=await db;
+  List<Map<String, dynamic>> result = await mydb!.rawQuery(query);
+  return result;
+}
 
-  }
 
     insertData(String sql)async{
 Database? mydb=await db;

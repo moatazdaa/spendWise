@@ -50,12 +50,22 @@ class _trans_debtState extends State<trans_debt> {
                           height: 22,
                         ),
                         TextButton(
-                            onPressed: () {
-                              setState(() {
+                            onPressed: ()async {
+                              setState(() {                              
                                 addNewDebt();
                                  control_amount.clear();
                                 control_descrption.clear();
                               });
+                              String descrption = control_descrption.text;
+                              String amount = control_amount.text;
+
+                              int response = await sqlDb.insertData('''            
+                             INSERT INTO debtTb (descrption, amount)
+                              VALUES ("$descrption", "$amount")        
+                              ''');
+                         
+                              print("response");
+                              print(response);
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -71,7 +81,6 @@ class _trans_debtState extends State<trans_debt> {
           backgroundColor: Color.fromARGB(255, 190, 195, 201),
         ),
         appBar: AppBar(
-          // elevation: 20,
           backgroundColor: Color.fromARGB(255, 190, 195, 201),
           title: Text("Debts"),
           centerTitle: true,
@@ -93,7 +102,7 @@ class _trans_debtState extends State<trans_debt> {
                       height: 20,
                     ),
                     Text(
-                      "Total of Debts = ${countDebt()}",
+                      "Total of Debts = ${countDebt()}" +" "+ "\$",
                       style: TextStyle(fontSize: 30),
                     ),
 
@@ -108,7 +117,10 @@ class _trans_debtState extends State<trans_debt> {
                       ...allDebt.map(
                         (item) => trans_debt1(
                             vartitle: item.descrption.toString(),
-                            varamount: int.parse(item.amount.toString())),
+                            varamount: int.parse(item.amount.toString()),
+                        
+                            ),
+                            
                       ),
                     ],
                   ),

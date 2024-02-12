@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:spendwise/credit.dart';
 import 'package:spendwise/mainpage.dart';
 import 'package:spendwise/pages/login.dart';
 import 'package:spendwise/pages/wellcome.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
      "/wellcome2" :(context) => const Wellcome2(),
      "/login" :(context) => const Login(),
           "/mainpage" :(context) => const mainpage(),
-            "/trans_credit" :(context) =>  trans_credit(key: UniqueKey()),
+            "/AddCreditScreen" :(context) =>  AddCreditScreen(),
             "/trans_debt":(context) => trans_debt(key: UniqueKey()),
 
 

@@ -3,9 +3,9 @@
 //import 'dart:js_util';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spendwise/mainpage1.dart';
 import 'package:spendwise/sqldb.dart';
+import 'package:spendwise/transaction/trans_credit1.dart';
 
 class mainpage extends StatefulWidget {
   const mainpage({super.key});
@@ -15,53 +15,50 @@ class mainpage extends StatefulWidget {
 }
 
 class _mainpageState extends State<mainpage> {
-
-  SqlDb sqlDb =SqlDb();
+  SqlDb sqlDb = SqlDb();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         //app bar in main page......................
         bottomNavigationBar: BottomAppBar(
-          color: Color.fromARGB(223, 255, 255, 255),
+          color: Color.fromARGB(242, 255, 255, 255),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
                 icon: Icon(Icons.home),
-                iconSize: 35,
-                                color: Color.fromARGB(255, 0, 0, 0),
-
-                onPressed: () {},
+                iconSize: 40,
+                color: Color.fromARGB(255, 72, 117, 153),
+                onPressed: () {
+                  //  Navigator.pushNamed(context, "/mainpage");
+                },
               ),
               IconButton(
                 icon: Icon(Icons.wallet),
-                iconSize: 35,
-                color: Color.fromARGB(255, 0, 0, 0),
+                iconSize: 40,
+                color: Color.fromARGB(255, 72, 117, 153),
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.search),
-                iconSize: 35,
-                                color: Color.fromARGB(255, 0, 0, 0),
-
+                iconSize: 40,
+                color: Color.fromARGB(255, 72, 117, 153),
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.settings),
-                iconSize: 35,
-                                color: Color.fromARGB(255, 0, 0, 0),
-
-                onPressed: () async{
+                iconSize: 40,
+                color: Color.fromARGB(255, 72, 117, 153),
+                onPressed: () async {
                   await sqlDb.mydeleteDatabase();
-                  
                 },
               ),
             ],
           ),
         ),
 
-        backgroundColor: Color.fromARGB(246, 223, 220, 211),
+        backgroundColor: Color.fromARGB(246, 245, 243, 238),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -175,11 +172,11 @@ class _mainpageState extends State<mainpage> {
                   height: 15,
                 ),
                 // space line ........
-                Container(
-                  width: double.infinity,
-                  height: 2,
-                  color: const Color.fromARGB(255, 87, 78, 78),
-                ),
+                // Container(
+                //   width: double.infinity,
+                //   height: 2,
+                //   color: const Color.fromARGB(255, 87, 78, 78),
+                // ),
                 SizedBox(
                   height: 15,
                 ),
@@ -187,17 +184,17 @@ class _mainpageState extends State<mainpage> {
                 Column(children: [
                   Row(mainAxisAlignment: MainAxisAlignment.end, 
                   children: [
-
                     //button fainancial....
                     TextButton.icon(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/trans_credit")
-                        .then((value) => {
+                        Navigator.pushNamed(context, "/AddCreditScreen")
+                            .then((value) => {
+                                  setState(
+                                    () {
 
-                          setState(() {
-                            
-                          },)
-                        });
+                                    },
+                                  )
+                                });
                       },
                       style: ButtonStyle(
                         fixedSize: MaterialStateProperty.all(Size(160, 60)),
@@ -232,7 +229,7 @@ class _mainpageState extends State<mainpage> {
                       width: 20,
                     ),
 
-                    //button Expenses....
+                    //button add card....
                     TextButton.icon(
                       onPressed: () {},
                       style: ButtonStyle(
@@ -251,11 +248,11 @@ class _mainpageState extends State<mainpage> {
                         ),
                       ),
                       icon: Icon(
-                        Icons.trending_down,
+                        Icons.add_card,
                         size: 35,
                       ),
                       label: Text(
-                        'Expenses',
+                        'Add card',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -268,25 +265,25 @@ class _mainpageState extends State<mainpage> {
                     ),
                   ]),
                 ]),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Column(
                   children: [
-                    Row(                
-                        mainAxisAlignment: MainAxisAlignment.center ,
-
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                            //button the debts......
+                        //button the debts......
 
                         TextButton.icon(
                           onPressed: () {
- Navigator.pushNamed(context, "/trans_debt")
-                        .then((value) => {
-
-                          setState(() {
-                            
-                          },)
-                        });
-
+                            Navigator.pushNamed(context, "/trans_debt")
+                                .then((value) => {
+                                      setState(
+                                        () {
+                                        },
+                                      )
+                                    });
                           },
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all(Size(160, 60)),
@@ -297,7 +294,8 @@ class _mainpageState extends State<mainpage> {
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 side: BorderSide(
-                                  color: const Color.fromARGB(255, 255, 255, 255),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   width: 2,
                                 ),
                               ),
@@ -321,7 +319,7 @@ class _mainpageState extends State<mainpage> {
                           width: 20,
                         ),
 
-                    //button Wallet....
+                        //button Wallet....
                         TextButton.icon(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -340,7 +338,7 @@ class _mainpageState extends State<mainpage> {
                             ),
                           ),
                           icon: Icon(
-                            Icons.trending_down,
+                            Icons.account_balance_wallet_outlined,
                             size: 35,
                           ),
                           label: Text(
@@ -362,7 +360,7 @@ class _mainpageState extends State<mainpage> {
                   height: 20,
                 ),
                 Text(
-                  "  Transactions",
+                  "    Transactions",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
