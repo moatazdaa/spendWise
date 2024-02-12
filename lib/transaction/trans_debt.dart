@@ -1,135 +1,135 @@
-// ignore_for_file: prefer_const_constructors
+// // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
-import 'package:spendwise/sqldb.dart';
-import 'package:spendwise/transaction/trans_debt1.dart';
+// import 'package:flutter/material.dart';
+// import 'package:spendwise/sqldb.dart';
+// import 'package:spendwise/transaction/trans_debt1.dart';
 
-class trans_debt extends StatefulWidget {
-  const trans_debt({required Key? key}) : super(key: key);
+// class trans_debt extends StatefulWidget {
+//   const trans_debt({required Key? key}) : super(key: key);
 
-  @override
-  State<trans_debt> createState() => _trans_debtState();
-}
+//   @override
+//   State<trans_debt> createState() => _trans_debtState();
+// }
 
-class _trans_debtState extends State<trans_debt> {
-    SqlDb sqlDb =SqlDb();
+// class _trans_debtState extends State<trans_debt> {
+//     SqlDb sqlDb =SqlDb();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    padding: EdgeInsets.all(22),
-                    color: Color.fromARGB(223, 229, 241, 239),
-                    height: double.infinity,
-                    child: Column(
-                      children: [
-                        TextField(
-                          textInputAction: TextInputAction.next,
-                          controller: control_descrption,
-                          maxLength: 20,
-                          decoration:
-                              InputDecoration(hintText: "add new describtion "),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        TextField(
-                          textInputAction: TextInputAction.next,
-                          controller: control_amount,
-                          maxLength: 10,
-                          decoration:
-                              InputDecoration(hintText: "add new Amount "),
-                        ),
-                        SizedBox(
-                          height: 22,
-                        ),
-                        TextButton(
-                            onPressed: ()async {
-                              setState(() {                              
-                                addNewDebt();
-                                 control_amount.clear();
-                                control_descrption.clear();
-                              });
-                              String descrption = control_descrption.text;
-                              String amount = control_amount.text;
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         floatingActionButton: FloatingActionButton(
+//           onPressed: () {
+//             showModalBottomSheet(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return Container(
+//                     padding: EdgeInsets.all(22),
+//                     color: Color.fromARGB(223, 229, 241, 239),
+//                     height: double.infinity,
+//                     child: Column(
+//                       children: [
+//                         TextField(
+//                           textInputAction: TextInputAction.next,
+//                           controller: control_descrption,
+//                           maxLength: 20,
+//                           decoration:
+//                               InputDecoration(hintText: "add new describtion "),
+//                         ),
+//                         SizedBox(
+//                           height: 30,
+//                         ),
+//                         TextField(
+//                           textInputAction: TextInputAction.next,
+//                           controller: control_amount,
+//                           maxLength: 10,
+//                           decoration:
+//                               InputDecoration(hintText: "add new Amount "),
+//                         ),
+//                         SizedBox(
+//                           height: 22,
+//                         ),
+//                         TextButton(
+//                             onPressed: ()async {
+//                               setState(() {                              
+//                                 addNewDebt();
+//                                  control_amount.clear();
+//                                 control_descrption.clear();
+//                               });
+//                               String descrption = control_descrption.text;
+//                               String amount = control_amount.text;
 
-                              int response = await sqlDb.insertData('''            
-                             INSERT INTO debtTb (descrption, amount)
-                              VALUES ("$descrption", "$amount")        
-                              ''');
+//                               int response = await sqlDb.insertData('''            
+//                              INSERT INTO debtTb (descrption, amount)
+//                               VALUES ("$descrption", "$amount")        
+//                               ''');
                          
-                              print("response");
-                              print(response);
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              "Add",
-                              style: TextStyle(fontSize: 22),
-                            ))
-                      ],
-                    ),
-                  );
-                });
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Color.fromARGB(255, 190, 195, 201),
-        ),
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 190, 195, 201),
-          title: Text("Debts"),
-          centerTitle: true,
+//                               print("response");
+//                               print(response);
+//                               Navigator.pop(context);
+//                             },
+//                             child: Text(
+//                               "Add",
+//                               style: TextStyle(fontSize: 22),
+//                             ))
+//                       ],
+//                     ),
+//                   );
+//                 });
+//           },
+//           child: Icon(Icons.add),
+//           backgroundColor: Color.fromARGB(255, 190, 195, 201),
+//         ),
+//         appBar: AppBar(
+//           backgroundColor: Color.fromARGB(255, 190, 195, 201),
+//           title: Text("Debts"),
+//           centerTitle: true,
 
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/mainpage");
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                size: 35,
-              )),
-        ),
-        body: SafeArea(
+//           leading: IconButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, "/mainpage");
+//               },
+//               icon: Icon(
+//                 Icons.arrow_back,
+//                 size: 35,
+//               )),
+//         ),
+//         body: SafeArea(
           
-          child: Column(
-            children: [
-    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Total of Debts = ${countDebt()}" +" "+ "\$",
-                      style: TextStyle(fontSize: 30),
-                    ),
+//           child: Column(
+//             children: [
+//     SizedBox(
+//                       height: 20,
+//                     ),
+//                     Text(
+//                       "Total of Debts = ${countDebt()}" +" "+ "\$",
+//                       style: TextStyle(fontSize: 30),
+//                     ),
 
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
+//               Expanded(
+//                 child: SingleChildScrollView(
+//                   child: Column(
+//                     children: [
                   
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ...allDebt.map(
-                        (item) => trans_debt1(
-                            vartitle: item.descrption.toString(),
-                            varamount: int.parse(item.amount.toString()),
+//                       SizedBox(
+//                         height: 20,
+//                       ),
+//                       ...allDebt.map(
+//                         (item) => trans_debt1(
+//                             vartitle: item.descrption.toString(),
+//                             varamount: int.parse(item.amount.toString()),
                         
-                            ),
+//                             ),
                             
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

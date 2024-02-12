@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:spendwise/credit.dart';
+import 'package:spendwise/debt.dart';
 import 'package:spendwise/mainpage.dart';
 import 'package:spendwise/pages/login.dart';
 import 'package:spendwise/pages/wellcome.dart';
 import 'package:spendwise/pages/wellcome2.dart';
-import 'package:spendwise/transaction/trans_credit.dart';
-import 'package:spendwise/transaction/trans_debt.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
      "/login" :(context) => const Login(),
           "/mainpage" :(context) => const mainpage(),
             "/AddCreditScreen" :(context) =>  AddCreditScreen(),
-            "/trans_debt":(context) => trans_debt(key: UniqueKey()),
+            "/AddDebtScreen":(context) => AddDebtScreen(),
 
 
  

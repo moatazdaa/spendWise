@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spendwise/transaction/trans_credit1.dart';
-import 'package:spendwise/transaction/trans_debt1.dart';
 
 class transMain extends StatefulWidget {
   String vartitle;
@@ -11,23 +9,22 @@ class transMain extends StatefulWidget {
 }
 
 class _transMainState extends State<transMain> {
-  calcNumber() {
-    trans? selectedTrans = allTrans.firstWhere(
-        (trans) => trans.title == widget.vartitle,
-        orElse: () => null);
-    if (selectedTrans != null) {
-      if (selectedTrans.title == "The Debts") {
-        return countDebt();
-      } else if (selectedTrans.title == "Fainancial") {
-        return 0;
-        //countCredit();
-      } else if (selectedTrans.title == "The Wallet") {
-        return 0;
-        //countCredit() - countDebt();
-      }
+ calcNumber() {
+  trans? selectedTrans = allTrans.firstWhere(
+    (trans) => trans.title == widget.vartitle,
+    orElse: () => null,
+  );
+  if (selectedTrans != null) {
+    if (selectedTrans.title == "The Debts") {
+      return 0;
+    } else if (selectedTrans.title == "Fainancial") {
+      return 0; // استدعاء الدالة المسؤولة عن حساب إجمالي النفقات
+    } else if (selectedTrans.title == "The Wallet") {
       return 0;
     }
   }
+  return 0;
+}
 
   @override
   Widget build(BuildContext context) {

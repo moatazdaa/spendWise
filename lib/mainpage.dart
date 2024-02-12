@@ -277,7 +277,7 @@ class _mainpageState extends State<mainpage> {
 
                         TextButton.icon(
                           onPressed: () {
-                            Navigator.pushNamed(context, "/trans_debt")
+                            Navigator.pushNamed(context, "/AddDebtScreen")
                                 .then((value) => {
                                       setState(
                                         () {

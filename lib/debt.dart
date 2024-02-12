@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:spendwise/sqldb.dart';
 import 'package:spendwise/transaction/trans_debt1.dart';
 
-class trans_credit1 extends StatefulWidget {
+class trans_debt1 extends StatefulWidget {
   String vartitle;
   num varamount;
-  Function(String) deleteCredit;
-  trans_credit1(
+  Function(String) deleteDebt;
+  trans_debt1(
       {required this.vartitle,
       required this.varamount,
-      required this.deleteCredit});
+      required this.deleteDebt});
 
   @override
-  State<trans_credit1> createState() => _trans_credit1State();
+  State<trans_debt1> createState() => _trans_debt1State();
 }
 
-class _trans_credit1State extends State<trans_credit1> {
+class _trans_debt1State extends State<trans_debt1> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +59,7 @@ class _trans_credit1State extends State<trans_credit1> {
                       ),
                       IconButton(
                         onPressed: () {
-                          widget.deleteCredit(widget.vartitle);
+                          widget.deleteDebt(widget.vartitle);
                         },
                         icon: Icon(
                           Icons.delete,
@@ -79,84 +79,84 @@ class _trans_credit1State extends State<trans_credit1> {
   }
 }
 
-class Credit {
+class Debt{
   String description;
   num amount;
 
-  Credit({required this.description, required this.amount});
+  Debt({required this.description, required this.amount});
 }
 
-class AddCreditScreen extends StatefulWidget {
+class AddDebtScreen extends StatefulWidget {
   @override
-  _AddCreditScreenState createState() => _AddCreditScreenState();
+  _AddDebtScreenState createState() => _AddDebtScreenState();
 }
 
-class _AddCreditScreenState extends State<AddCreditScreen> {
+class _AddDebtScreenState extends State<AddDebtScreen> {
   SqlDb sqlDb = SqlDb();
   TextEditingController controlDescription = TextEditingController();
   TextEditingController controlAmount = TextEditingController();
-  List<Credit> allCredit = [];
+  List<Debt> allDebt = [];
 
   @override
   void initState() {
     super.initState();
-    fetchCreditData();
+    fetchDebtData();
   }
 
-  fetchCreditData() async {
-    List<Map<String, dynamic>> creditData =
-        await sqlDb.selectData('SELECT descrption, amount FROM creditTb');
+  fetchDebtData() async {
+    List<Map<String, dynamic>> debtData =
+        await sqlDb.selectData('SELECT descrption, amount FROM debtTb');
 
     setState(() {
-      allCredit = creditData.map((data) {
+      allDebt = debtData.map((data) {
         String description = data['descrption'].toString();
         int amount = int.tryParse(data['amount'].toString()) ?? 0;
 
-        return Credit(description: description, amount: amount);
+        return Debt(description: description, amount: amount);
       }).toList();
     });
   }
 
-  addNewCredit() async {
+  addNewDebt() async {
     String description = controlDescription.text;
     int amount = int.parse(controlAmount.text);
 
     int response = await sqlDb.insertData('''
-      INSERT INTO creditTb (descrption, amount)
+      INSERT INTO debtTb (descrption, amount)
       VALUES ("$description", "$amount")
     ''');
 
     if (response != null) {
       setState(() {
-        allCredit.add(Credit(description: description, amount: amount));
+        allDebt.add(Debt(description: description, amount: amount));
       });
       controlDescription.clear();
       controlAmount.clear();
     }
   }
 
-  deleteCredit(String description) async {
+  deleteDebt(String description) async {
     int response = await sqlDb.deleteData('''
-      DELETE FROM creditTb WHERE descrption = "$description"
+      DELETE FROM debtTb WHERE descrption = "$description"
     ''');
 
     if (response != null) {
       setState(() {
-        allCredit.removeWhere((credit) => credit.description == description);
+        allDebt.removeWhere((debt) => debt.description == description);
       });
     }
   }
 
-  num calculateTotalCredit() {
-    return allCredit.fold(
-        0, (previousValue, credit) => previousValue + credit.amount);
+  num calculateTotalDebt() {
+    return allDebt.fold(
+        0, (previousValue, debt) => previousValue + debt.amount);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Credit'),
+          title: Text('Add Debt'),
         ),
         body: Padding(
             padding: EdgeInsets.all(17.0),
@@ -181,7 +181,7 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed:(){addNewCredit();
+                  onPressed:(){addNewDebt();
                   
                   //  Navigator.pop(context);
                   }, 
@@ -190,27 +190,28 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
              
                 ),
                  SizedBox(height: 15),
-                Text('Total Amount: \$${calculateTotalCredit()}',
+                Text('Total Amount: \$${calculateTotalDebt()}',
                     style:
                         TextStyle(fontSize: 18, 
                         fontWeight: FontWeight.bold,
+                         color: calculateTotalDebt() >= 2000 ? Colors.red : null
                         
                         )
                         ),
                 SizedBox(height: 20),
                 Text(
-                  'Credit List',
+                  'DEbt List',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: allCredit.length,
+                    itemCount: allDebt.length,
                     itemBuilder: (context, index) {
-                      return trans_credit1(
-                        vartitle: allCredit[index].description,
-                        varamount: allCredit[index].amount,
-                        deleteCredit: deleteCredit,
+                      return trans_debt1(
+                        vartitle: allDebt[index].description,
+                        varamount: allDebt[index].amount,
+                         deleteDebt: deleteDebt,
                       );
                     },
                   ),
