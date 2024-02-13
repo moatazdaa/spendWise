@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:spendwise/mainpage1.dart';
 import 'package:spendwise/sqldb.dart';
-import 'package:spendwise/transaction/trans_credit1.dart';
 
 class mainpage extends StatefulWidget {
   const mainpage({super.key});

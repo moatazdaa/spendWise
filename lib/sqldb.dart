@@ -40,7 +40,7 @@ _onupgrade(Database db ,int oldversion ,newversion)async{
 
     await db.execute('''
 CREATE TABLE "loginTb"(
-  "username" TEXT NOT NULL PRIMARY KEY,
+  "username" TEXT NOT NULL ,
   "password" INTEGER NOT NULL
 )
 
@@ -86,6 +86,12 @@ CREATE TABLE "walletTb"(
   List<Map<String, dynamic>> result = await mydb!.rawQuery(query);
   return result;
 }
+    selectAccount(String sql)async{
+Database? mydb=await db;
+List response =await mydb!.rawQuery(sql);
+return response;
+
+  }
 
 
     insertData(String sql)async{

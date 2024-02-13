@@ -18,7 +18,7 @@ class _transMainState extends State<transMain> {
     if (selectedTrans.title == "The Debts") {
       return 0;
     } else if (selectedTrans.title == "Fainancial") {
-      return 0; // استدعاء الدالة المسؤولة عن حساب إجمالي النفقات
+      return 0; 
     } else if (selectedTrans.title == "The Wallet") {
       return 0;
     }
