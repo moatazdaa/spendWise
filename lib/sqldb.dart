@@ -1,4 +1,5 @@
-import 'dart:ui';
+
+// ignore_for_file: depend_on_referenced_packages
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';

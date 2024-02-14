@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:spendwise/sqldb.dart';
 import 'package:spendwise/transction/calc.dart';
