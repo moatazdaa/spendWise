@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spendwise/transction/calc.dart';
+import 'package:spendwise/sqldb.dart';
 
 class transMain extends StatefulWidget {
   String vartitle;
@@ -9,22 +11,25 @@ class transMain extends StatefulWidget {
 }
 
 class _transMainState extends State<transMain> {
- calcNumber() {
-  trans? selectedTrans = allTrans.firstWhere(
-    (trans) => trans.title == widget.vartitle,
-    orElse: () => null,
-  );
-  if (selectedTrans != null) {
-    if (selectedTrans.title == "The Debts") {
-      return 0;
-    } else if (selectedTrans.title == "Fainancial") {
-      return 0; 
-    } else if (selectedTrans.title == "The Wallet") {
-      return 0;
+  SqlDb sqlDb = SqlDb();
+
+  calcNumber() {
+    setState(() {});
+    trans? selectedTrans = allTrans.firstWhere(
+      (trans) => trans.title == widget.vartitle,
+      orElse: () => null,
+    );
+    if (selectedTrans != null) {
+      if (selectedTrans.title == "The Debts") {
+        return calculateTotalDebt();
+      } else if (selectedTrans.title == "Fainancial") {
+        return calculateTotalCredit();
+      } else if (selectedTrans.title == "The Wallet") {
+        return calculateTotalCredit() - calculateTotalDebt();
+      }
     }
+    return 0;
   }
-  return 0;
-}
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +47,7 @@ class _transMainState extends State<transMain> {
                     color: Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                        color: const Color.fromARGB(255, 245, 243, 243),
-                        width: 2)),
+                        color: Color.fromARGB(255, 139, 171, 218), width: 1)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -51,11 +55,11 @@ class _transMainState extends State<transMain> {
                       widget.vartitle,
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: "myfont",
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     Text(
                       "${calcNumber()}" + " " + "\$",
                       textAlign: TextAlign.center,
@@ -64,7 +68,6 @@ class _transMainState extends State<transMain> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //Icon(Icons.monetization_on),
                   ],
                 )),
           ),

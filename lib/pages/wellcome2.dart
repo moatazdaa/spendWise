@@ -27,6 +27,7 @@ class Wellcome2 extends StatelessWidget {
           Text(
             "Enjoy Our Services",
             style: TextStyle(
+              fontFamily: "myfont",
               fontSize: 27,
               fontWeight: FontWeight.bold,
             ),
@@ -35,6 +36,7 @@ class Wellcome2 extends StatelessWidget {
           Text(
             "Enjoy easily tracking and improving your savings and managing your expenses",
             style: TextStyle(
+              fontFamily: "myfont",
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: const Color.fromARGB(255, 105, 105, 105),
@@ -66,6 +68,7 @@ class Wellcome2 extends StatelessWidget {
             child: Text(
               "Get Strated",
               style: TextStyle(
+                fontFamily: "myfont",
                 color: Colors.black,
                 fontSize: 22,
               ),

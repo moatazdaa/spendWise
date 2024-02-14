@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spendwise/sqldb.dart';
-import 'package:spendwise/transaction/trans_debt1.dart';
+import 'package:spendwise/transction/calc.dart';
 
 class trans_debt1 extends StatefulWidget {
   String vartitle;
@@ -18,6 +18,7 @@ class trans_debt1 extends StatefulWidget {
 class _trans_debt1State extends State<trans_debt1> {
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       width: double.infinity,
       child: Column(
@@ -43,6 +44,7 @@ class _trans_debt1State extends State<trans_debt1> {
                     widget.vartitle.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: "myfont",
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -79,13 +81,6 @@ class _trans_debt1State extends State<trans_debt1> {
   }
 }
 
-class Debt{
-  String description;
-  num amount;
-
-  Debt({required this.description, required this.amount});
-}
-
 class AddDebtScreen extends StatefulWidget {
   @override
   _AddDebtScreenState createState() => _AddDebtScreenState();
@@ -95,12 +90,12 @@ class _AddDebtScreenState extends State<AddDebtScreen> {
   SqlDb sqlDb = SqlDb();
   TextEditingController controlDescription = TextEditingController();
   TextEditingController controlAmount = TextEditingController();
-  List<Debt> allDebt = [];
 
   @override
   void initState() {
     super.initState();
     fetchDebtData();
+    calculateTotalDebt();
   }
 
   fetchDebtData() async {
@@ -147,16 +142,15 @@ class _AddDebtScreenState extends State<AddDebtScreen> {
     }
   }
 
-  num calculateTotalDebt() {
-    return allDebt.fold(
-        0, (previousValue, debt) => previousValue + debt.amount);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Debt'),
+          title: Text('Add Debt',
+          style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "myfont",
+          ),),
         ),
         body: Padding(
             padding: EdgeInsets.all(17.0),
@@ -181,27 +175,41 @@ class _AddDebtScreenState extends State<AddDebtScreen> {
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed:(){addNewDebt();
-                  
-                  //  Navigator.pop(context);
-                  }, 
-                  
-                  child: Text('Add'),
-             
+                  onPressed: () {
+                    addNewDebt();
+                  },
+                  child: Text(
+                     'New Debt',
+                    style: TextStyle(
+                      fontFamily: "myfont",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                    ),
                 ),
-                 SizedBox(height: 15),
+                SizedBox(height: 15),
                 Text('Total Amount: \$${calculateTotalDebt()}',
-                    style:
-                        TextStyle(fontSize: 18, 
+                    style: TextStyle(
+                        fontSize: 19,
+                       // fontFamily: "myfont",
                         fontWeight: FontWeight.bold,
-                         color: calculateTotalDebt() >= 2000 ? Colors.red : null
-                        
-                        )
-                        ),
+                        color:
+                            calculateTotalDebt() >= 2000 ? Colors.red : null)),
                 SizedBox(height: 20),
+
+                //  space line ........
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: const Color.fromARGB(255, 87, 78, 78),
+                ),
+                SizedBox(height: 10),
                 Text(
-                  'DEbt List',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  'Debt List',
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontFamily: "myfont",
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 Expanded(
@@ -211,12 +219,11 @@ class _AddDebtScreenState extends State<AddDebtScreen> {
                       return trans_debt1(
                         vartitle: allDebt[index].description,
                         varamount: allDebt[index].amount,
-                         deleteDebt: deleteDebt,
+                        deleteDebt: deleteDebt,
                       );
                     },
                   ),
                 ),
-               
               ],
             )));
   }

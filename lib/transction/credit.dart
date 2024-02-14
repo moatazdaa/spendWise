@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:spendwise/sqldb.dart';
-import 'package:spendwise/transaction/trans_debt1.dart';
+import 'package:spendwise/transction/calc.dart';
 
 class trans_credit1 extends StatefulWidget {
   String vartitle;
   num varamount;
   Function(String) deleteCredit;
+
   trans_credit1(
       {required this.vartitle,
       required this.varamount,
@@ -43,6 +44,7 @@ class _trans_credit1State extends State<trans_credit1> {
                     widget.vartitle.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: "myfont",
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -79,13 +81,6 @@ class _trans_credit1State extends State<trans_credit1> {
   }
 }
 
-class Credit {
-  String description;
-  num amount;
-
-  Credit({required this.description, required this.amount});
-}
-
 class AddCreditScreen extends StatefulWidget {
   @override
   _AddCreditScreenState createState() => _AddCreditScreenState();
@@ -95,12 +90,12 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
   SqlDb sqlDb = SqlDb();
   TextEditingController controlDescription = TextEditingController();
   TextEditingController controlAmount = TextEditingController();
-  List<Credit> allCredit = [];
 
   @override
   void initState() {
     super.initState();
     fetchCreditData();
+    calculateTotalCredit();
   }
 
   fetchCreditData() async {
@@ -147,16 +142,15 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
     }
   }
 
-  num calculateTotalCredit() {
-    return allCredit.fold(
-        0, (previousValue, credit) => previousValue + credit.amount);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Credit'),
+          title: Text('Add Credit',
+           style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "myfont",
+          ),),
         ),
         body: Padding(
             padding: EdgeInsets.all(17.0),
@@ -181,28 +175,47 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed:(){addNewCredit();
-                  
-                  //  Navigator.pop(context);
-                  }, 
-                  
-                  child: Text('Add'),
-             
+                  onPressed: () {
+                    addNewCredit();
+
+                    //  Navigator.pop(context);
+                  },
+                  child: Text(
+                    'New Credit',
+                    style: TextStyle(
+                      fontFamily: "myfont",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                  ),
                 ),
-                 SizedBox(height: 15),
+                SizedBox(height: 15),
                 Text('Total Amount: \$${calculateTotalCredit()}',
-                    style:
-                        TextStyle(fontSize: 18, 
-                        fontWeight: FontWeight.bold,
-                        
-                        )
-                        ),
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontFamily: "myfont",
+                    )),
                 SizedBox(height: 20),
-                Text(
-                  'Credit List',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                //  space line ........
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: const Color.fromARGB(255, 87, 78, 78),
                 ),
                 SizedBox(height: 10),
+
+                Text(
+                  'Credit List ',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "myfont",
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
                 Expanded(
                   child: ListView.builder(
                     itemCount: allCredit.length,
@@ -215,7 +228,6 @@ class _AddCreditScreenState extends State<AddCreditScreen> {
                     },
                   ),
                 ),
-               
               ],
             )));
   }

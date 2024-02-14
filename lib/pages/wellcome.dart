@@ -27,17 +27,18 @@ class Wellcome extends StatelessWidget {
           Text(
             "Wellcome To Spend Wise App",
             style: TextStyle(
-              fontSize: 27,
+              fontFamily: "myfont",
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             "This application will help you achieve your financial goals and assist in organizing your financial life",
             style: TextStyle(
-              fontFamily: "assets/fonts/font2.ttf",
-              fontSize: 18,
-              //color: Color.fromARGB(255, 44, 44, 44),
-              fontWeight: FontWeight.w500,
+              fontFamily: "myfont",
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 105, 105, 105),
             ),
             textAlign: TextAlign.center,
           ),
@@ -66,6 +67,7 @@ class Wellcome extends StatelessWidget {
             child: Text(
               "Next",
               style: TextStyle(
+                fontFamily: "myfont",
                 color: const Color.fromARGB(255, 12, 12, 12),
                 fontSize: 22,
               ),
